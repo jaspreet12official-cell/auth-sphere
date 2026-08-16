@@ -84,6 +84,13 @@ export const loginUser = async (req, res) => {
     message:'invalid email or password '
   })
  }
+ req.session.userId = user._id; 
+ req.session.role =user.role;
+ // ab samjho ki user ne email +pass diya vo shi nikla 
+ //login ho gya  .... ab req.session.userID = user._id se session create hua 
+ //vo session ab har request k sath available hoga ,aur vo user ki identity ko identify krta hia 
+ //aur  a session id k andar cookie bhi create hogi , jo ki browser k andar store hogi , aur vo cookie har request k sath bheji jayegi , aur server uss cookie ko read 
+ // krega 
 
   return res.status(200).json({
       success: true,

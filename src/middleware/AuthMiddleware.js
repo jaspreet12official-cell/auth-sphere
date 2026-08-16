@@ -1,0 +1,24 @@
+export const isAuthenticated = (req, res, next )=> {
+    if (!req.session.userID) {
+        return res.status(401).json({
+            success:false , 
+            message:"unauthorized access"
+        })
+    }
+    req.user = {
+    id: req.session.userId,
+    role: req.session.role,
+  };
+    next();
+}
+// Request
+//    ↓
+// isAuthenticated
+//    ↓
+// req.session.userId exists?
+//    ↓
+//  YES                NO
+//   ↓                  ↓
+// req.user          401 Error
+//   ↓
+// next()
