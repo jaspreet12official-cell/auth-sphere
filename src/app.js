@@ -1,7 +1,8 @@
 import express from "express";
 import authRoutes from "./routes/AuthRoutes.js";
 import session from "express-session";
-
+import userRoutes from "./routes/UserRoutes.js"
+import adminRoutes from "./routes/AdminRoutes.js";
 const app = express();
 
 app.use( //Jo bhi request meri application mein aaye, uspar ye middleware available hona chahiye.
@@ -17,6 +18,8 @@ app.use( //Jo bhi request meri application mein aaye, uspar ye middleware availa
 }))
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.get("/", (req, res) => {
   res.json({
     success: true,

@@ -1,16 +1,20 @@
-export const isAuthenticated = (req, res, next )=> {
-    if (!req.session.userID) {
-        return res.status(401).json({
-            success:false , 
-            message:"unauthorized access"
-        })
-    }
-    req.user = {
+const isAuthenticated = (req, res, next) => {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized access",
+    });
+  }
+
+  req.user = {
     id: req.session.userId,
     role: req.session.role,
   };
-    next();
-}
+
+  next();
+};
+
+export default isAuthenticated;
 // Request
 //    ↓
 // isAuthenticated
